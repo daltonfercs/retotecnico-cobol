@@ -1,21 +1,13 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.io.IOException;
 
-public class Main {
+public class ProcesarCSV {
     public static void main(String[] args) {
-
-        Menu menu = new Menu();
-
-        //menu.opcionMenu();
-
-        System.out.println("Hello, World!");
         String filePath = "transacciones.csv"; // Ruta del archivo CSV
         double totalCredito = 0;
-        int Credito = 0;
         double totalDebito = 0;
-        int Debito = 0;
 
         try (BufferedReader br = Files.newBufferedReader(Paths.get(filePath))) {
             String line;
@@ -29,18 +21,14 @@ public class Main {
 
                     if (tipo.equalsIgnoreCase("Crédito")) {
                         totalCredito += monto;
-                        Credito ++;
                     } else if (tipo.equalsIgnoreCase("Débito")) {
                         totalDebito += monto;
-                        Debito ++;
                     }
                 }
             }
 
             System.out.println("Total Crédito: " + totalCredito);
-            System.out.println("Crédito: " + Credito);
             System.out.println("Total Débito: " + totalDebito);
-            System.out.println("Débito: " + Debito);
             System.out.println("Balance Final: " + (totalCredito - totalDebito));
 
         } catch (IOException e) {
