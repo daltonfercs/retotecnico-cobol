@@ -4,10 +4,16 @@ import java.nio.file.Paths;
 import java.io.IOException;
 
 public class ProcesarCSV {
-    public static void main(String[] args) {
-        String filePath = "transacciones.csv"; // Ruta del archivo CSV
+    public void CVS(String archivo) {
+        String filePath = archivo; // Ruta del archivo CSV
         double totalCredito = 0;
+        int Credito = 0;
         double totalDebito = 0;
+        int Debito = 0;
+        String maxTransaccionId = "";
+        double maxMonto = Double.MIN_VALUE;
+        final String ANSI_WHITE = "\u001B[37m";
+        final String ANSI_CYAN = "\u001B[36m";
 
         try (BufferedReader br = Files.newBufferedReader(Paths.get(filePath))) {
             String line;
@@ -18,18 +24,29 @@ public class ProcesarCSV {
                 if (data.length == 3) {
                     String tipo = data[1].trim();
                     double monto = Double.parseDouble(data[2].trim());
+                    String id = data[0].trim();
 
                     if (tipo.equalsIgnoreCase("Crédito")) {
                         totalCredito += monto;
-                    } else if (tipo.equalsIgnoreCase("Débito")) {
+                        Credito++;
+                    }
+                    if (tipo.equalsIgnoreCase("Débito")) {
                         totalDebito += monto;
+                        Debito++;
+                    }
+                    if (monto > maxMonto) {
+                        maxMonto = monto;
+                        maxTransaccionId = id;
                     }
                 }
             }
 
-            System.out.println("Total Crédito: " + totalCredito);
-            System.out.println("Total Débito: " + totalDebito);
-            System.out.println("Balance Final: " + (totalCredito - totalDebito));
+            System.out.println(ANSI_WHITE+"Reporte de Transacciones");
+            System.out.println(ANSI_CYAN+"---------------------------------------------");
+            System.out.println(ANSI_CYAN+"Balance Final: " + (totalCredito - totalDebito));
+            System.out.println(ANSI_CYAN+"Transacción con el monto más alto: ID "
+                    + maxTransaccionId + " - " + maxMonto);
+            System.out.printf(ANSI_CYAN+"Conteo de Transacciones: Crédito: %d Débito: %d \n", Credito, Debito);
 
         } catch (IOException e) {
             System.err.println("Error al leer el archivo: " + e.getMessage());
