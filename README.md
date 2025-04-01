@@ -7,6 +7,13 @@ Se Desarrollo una aplicación de línea de comandos (CLI) que procese un archivo
         Identificar el ID y el monto de la transacción con el valor más alto.
     - ✅ Conteo de Transacciones:
         Número total de transacciones para cada tipo ("Crédito" y "Débito").
+    - ✅ formato del CSV
+    id,tipo,monto
+    1,Crédito,100.00
+    2,Débito,50.00
+    3,Crédito,200.00
+    4,Débito,75.00
+    5,Crédito,150.00
 
 ## 🚀 Características
 - ✅ Utilizo el lenguaje de Programacion Java
